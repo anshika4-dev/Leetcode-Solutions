@@ -15,6 +15,5 @@ public:
             else result+=m[s[i]]; 
         }
         return result;
-        
     }
 };

@@ -1,25 +1,24 @@
 class Solution {
 public:
     int countServers(vector<vector<int>>& grid) {
-        vector<int> Rows(grid.size());
-        vector<int> Col(grid[0].size());
-        
-        // Calculate row and column sums
-        for (int i = 0; i < grid.size(); i++) {
-            for (int j = 0; j < grid[0].size(); j++) {
-                Rows[i] += grid[i][j];
-                Col[j] += grid[i][j];
-            }
-        }
-        
-        int ans = 0;
-        for (int i = 0; i < grid.size(); i++) {
-            for (int j = 0; j < grid[0].size(); j++) {
-                if (grid[i][j] == 1 && (Rows[i] > 1 || Col[j] > 1)) {
-                    ans++;
+        const int m=grid.size(), n=grid[0].size();
+        int row[250]={0}, col[250]={0}, cnt=0;
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if (grid[i][j]){
+                    cnt++;
+                    row[i]++;
+                    col[j]++;
                 }
             }
         }
-        return ans;
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if (grid[i][j]&& row[i]==1 && col[j]==1){
+                    cnt--;
+                }
+            }
+        }
+        return cnt;
     }
 };

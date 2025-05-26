@@ -1,11 +1,24 @@
 class Solution {
 public:
     bool check(vector<int>& nums) {
-    //Welcome \U0001f338Miss Enchanted Weaver of Dreams...\U0001f4ab
-    //Jis din welcome message likha hai pahle se, majal se us din aapne ques khud se kiya ho
-      int count = 0, n = nums.size();
-        for (int i = 0; i < n; i++) 
-            if (nums[i] > nums[(i+1)%n] && ++count > 1) return false;
-        return true;
+        int n=nums.size();
+        int k,count=0;
+        vector<int>result;
+        for(int i=0;i<n-1;i++){
+            if(nums[i]>nums[i+1]){
+                k=i+1;
+                count=1;
+                break;
+            }
+        }
+        if(count==0)return true;
+        for(int i=k;i<n;i++){
+            result.push_back(nums[i]);
+        }
+        for(int i=0;i<k;i++){
+            result.push_back(nums[i]);
+        }
+        sort(nums.begin(),nums.end());
+        return result==nums;
     }
 };

@@ -1,22 +1,18 @@
 class Solution {
 public:
     vector<int> smallestSubarrays(vector<int>& nums) {
-        const int n=nums.size();
-        vector<int> ans(n);
-        vector<int> last(30, -1); // last seen index of each bit
-
-        for (int i=n-1; i>= 0; i--) {
-            const unsigned x=nums[i];
-            int j=i;
-            bitset<30> X(x);
-            for (int b=0; b<30; b++) {
-                if (X[b]) 
-                    last[b]=i;
-                j=max(j, last[b]);
+        int len = nums.size();
+        vector<int> res(len, 1);
+        for (int i = 0; i < len; ++i) {
+            int x = nums[i];
+            res[i] = 1;
+            int j = i - 1;
+            while (j >= 0 && (nums[j] | x) != nums[j]) {
+                res[j] = i - j + 1;
+                nums[j] |= x;
+                --j;
             }
-            ans[i]=j-i+1;
         }
-
-        return ans;
+        return res;
     }
 };

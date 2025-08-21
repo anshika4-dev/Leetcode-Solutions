@@ -6,8 +6,10 @@ public:
             if(nums[i]==1){
                 count++;
                 count1=max(count,count1);
-            }else count=0;
+            }
+            else count=0;
         }
         return count1;
     }
+
 };

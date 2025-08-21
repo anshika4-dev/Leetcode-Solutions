@@ -1,53 +1,37 @@
 class Solution {
 public:
-    int maximumGain(string s, int ax, int ay) {
-        stack<char>st;
-        int score=0;
-        if(ax>ay){
-            for(char x:s){
-                if(!st.empty() && st.top()=='a' && x=='b'){
-                    score+=ax;
-                    st.pop();
+    int maximumGain(string s, int x, int y) {
+        int score = 0;
+        char ch1 = 'a', ch2 = 'b';
+        int cnt1 = 0, cnt2 = 0;
+
+        if (x < y) {
+            swap(x, y);
+            ch1 = 'b';
+            ch2 = 'a';
+        }
+
+        for (char ch : s) {
+            if (ch == ch1) {
+                cnt1++;
+            } else if (ch == ch2) {
+                if (cnt1 > 0) {
+                    cnt1--;
+                    score += x;
+                } else {
+                    cnt2++;
                 }
-                else st.push(x);
-            }
-            s.clear();
-            while(!st.empty()){
-                s+=st.top();
-                st.pop();
-            }
-            reverse(s.begin(),s.end());
-            for(char x:s){
-                if(!st.empty() && st.top()=='b' && x=='a'){
-                    score+=ay;
-                    st.pop();
-                }
-                else st.push(x);
+            } else {
+                score += min(cnt1, cnt2) * y;
+                cnt1 = 0;
+                cnt2 = 0;
             }
         }
-        else{
-             for(char x:s){
-                if(!st.empty() && st.top()=='b' && x=='a'){
-                    score+=ay;
-                    st.pop();
-                }
-                else st.push(x);
-            }
-            s.clear();
-            while(!st.empty()){
-                s+=st.top();
-                st.pop();
-            }
-            reverse(s.begin(),s.end());
-            for(char x:s){
-                cout<<x<<" ";
-                if(!st.empty() && st.top()=='a' && x=='b'){
-                    score+=ax;
-                    st.pop();
-                }
-                else st.push(x);
-            }
+
+        if (cnt1 != 0) {
+            score += min(cnt1, cnt2) * y;
         }
+
         return score;
     }
 };

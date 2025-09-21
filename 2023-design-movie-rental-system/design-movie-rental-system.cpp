@@ -1,64 +1,74 @@
 class MovieRentingSystem {
 public:
-   vector<set<pair<int, int>>> available = vector<set<pair<int, int>>> (10010);            
-    vector<set<pair<int, int>>> getPrice = vector<set<pair<int, int>>> (10010);
-    
-    set<pair<int, pair<int, int>>> rented;
-    
-    MovieRentingSystem(int n, vector<vector<int>>& e){
-        for(auto v: e){
-            available[v[1]].insert({v[2], v[0]});            
-            getPrice[v[1]].insert({v[0], v[2]});             
+    // Comparator for available movies: sort by price, then shop
+    struct CompAvailable {
+        bool operator()(const pair<int,int> &a,const pair<int,int> &b) const {
+            if(a.first == b.first) return a.second < b.second; // tie: shop
+            return a.first < b.first;                           // price first
+        }
+    };
+
+    // Comparator for rented movies: sort by price, then shop, then movie
+    struct CompRented {
+        bool operator()(const vector<int> &a,const vector<int> &b) const {
+            if(a[0] != b[0]) return a[0] < b[0]; // price
+            if(a[1] != b[1]) return a[1] < b[1]; // shop
+            return a[2] < b[2];                   // movie
+        }
+    };
+
+    // Data structures
+    map<int, set<pair<int,int>, CompAvailable>> available; // movieId -> {price, shop}
+    map<pair<int,int>, int> priceMap;                     // {shop, movie} -> price
+    set<vector<int>, CompRented> rented;                 // {price, shop, movie}
+
+    // Constructor
+    MovieRentingSystem(int n, vector<vector<int>>& entries) {
+        for(auto &x : entries){
+            int shop = x[0], movie = x[1], price = x[2];
+            available[movie].insert({price, shop});
+            priceMap[{shop, movie}] = price;
         }
     }
-    
-    vector<int> search(int movie){
-        vector<int> ans;
-        int i=0;
-        for(auto d: available[movie]){                              
-            ans.push_back(d.second);
-            i++;
-            if(i>=5){
-                break;
-            }
+
+    // Search for top 5 cheapest shops for a movie
+    vector<int> search(int movie) {
+        vector<int> result;
+        if(available.find(movie) == available.end()) return result;
+        auto &s = available[movie];
+        int k = 5;
+        for(auto &p : s){
+            if(k-- == 0) break;
+            result.push_back(p.second); // shop
         }
-        return ans;
+        return result;
     }
-    
-    void rent(int shop, int movie){
-        
-        auto it = getPrice[movie].lower_bound({shop, INT_MIN});   
-        int price = (*it).second;
-        
-        available[movie].erase({price, shop});                      
-        
-        rented.insert({price, {shop, movie}});                     
+
+    // Rent a movie from a shop
+    void rent(int shop, int movie) {
+        int p = priceMap[{shop, movie}];
+        available[movie].erase({p, shop});
+        rented.insert({p, shop, movie});
     }
-    
+
+    // Drop a previously rented movie
     void drop(int shop, int movie) {
-        
-        auto it = getPrice[movie].lower_bound({shop, INT_MIN});   
-        int price = (*it).second;
-        
-        available[movie].insert({price, shop});                     
-        
-        rented.erase({price, {shop, movie}});                       
+        int p = priceMap[{shop, movie}];
+        rented.erase({p, shop, movie});
+        available[movie].insert({p, shop});
     }
-    
+
+    // Report top 5 cheapest rented movies
     vector<vector<int>> report() {
-        vector<vector<int>> ans;
-        int i=0;
-        for(auto d: rented){                                        
-            ans.push_back({d.second.first, d.second.second});
-            i++;
-            if(i>=5){
-                break;
-            }
+        vector<vector<int>> result;
+        int k = 5;
+        for(auto &v : rented){
+            if(k-- == 0) break;
+            result.push_back({v[1], v[2]}); // {shop, movie}
         }
-        return ans;
+        return result;
     }
 };
-
 
 /**
  * Your MovieRentingSystem object will be instantiated and called as such:

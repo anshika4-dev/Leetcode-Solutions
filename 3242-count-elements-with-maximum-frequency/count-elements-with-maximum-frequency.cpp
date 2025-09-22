@@ -8,9 +8,7 @@ public:
             m[x]++;
             large=max(large,m[x]);
         } 
-        for(auto &x:m){
-            if(x.second==large) result+=x.second;
-        }
+        for(auto &x:m) if(x.second==large) result+=x.second;
         return result;
     }
 };

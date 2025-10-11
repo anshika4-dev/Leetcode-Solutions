@@ -2,16 +2,16 @@ class Solution {
 public:
     string reverseWords(string s) {
         stringstream ss(s);
-        string word;
+        string result="";
         vector<string>v;
+        string word="";
         while(ss>>word) v.push_back(word);
         reverse(v.begin(),v.end());
-        string res="";
         for(string x:v){
-            res+=x;
-            res+=" ";
+            result+=x;
+            result+=" ";
         }
-        res.pop_back();
-        return res;
+        result.pop_back();
+        return result;
     }
 };

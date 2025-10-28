@@ -10,7 +10,7 @@ public:
         long long result=0;
         while(temp!=0){
             int d=temp%10;
-            if(d!=0) result=result*10+d;
+            result=result*10+d;
             temp/=10;
         }
         return result;

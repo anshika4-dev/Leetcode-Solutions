@@ -15,6 +15,8 @@ public:
                 temp->next=temp->next->next;
                 }
                 else{
+    //since we cant delete the last node, we have to take a previous pointer so if we encounter
+    //a last node and we have to delete it, we will set next of prev to nullptr.
                     prev->next=nullptr;
                     temp=temp->next;
                 }

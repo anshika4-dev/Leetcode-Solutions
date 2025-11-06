@@ -4,7 +4,12 @@ public:
         sort(nums.begin(),nums.end(),[&] (auto &a,auto &b){
             return abs(a)<abs(b);
         });
-        long long product=(long long)nums[nums.size()-1]*nums[nums.size()-2];
-        return product>0?product*100000:product*-100000;
+        const long long limit=100000;
+        int n=nums.size();
+        if(n<3) return 0;
+        long long product=(long long)nums[n-1]*nums[n-2];
+        if(product>0) product*=limit;
+        else product*=-limit;
+        return product;
     }
 };

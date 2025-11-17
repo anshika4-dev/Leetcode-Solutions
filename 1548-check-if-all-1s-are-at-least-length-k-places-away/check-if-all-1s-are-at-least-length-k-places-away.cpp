@@ -6,6 +6,6 @@ public:
             if(nums[i]==1 && i-prev<=k) return false;
             if(nums[i]==1) prev=i;
         }
-        return 4;
+        return true;
     }
 };

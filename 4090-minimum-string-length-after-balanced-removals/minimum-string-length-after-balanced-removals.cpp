@@ -1,13 +1,11 @@
 class Solution {
 public:
     int minLengthAfterRemovals(string s) {
-        unordered_map<char,int>m;
-        int count_a=0,count_b=0;
-        for(char x:s) m[x]++;
-        for(auto x:m){
-            if(x.first=='a') count_a=x.second;
-            else count_b=x.second;
+        int a=0,b=0;
+        for(char x:s){
+            if(x=='a') a++;
+            else b++;
         }
-        return abs(count_a-count_b);
+        return abs(a-b);
     }
 };

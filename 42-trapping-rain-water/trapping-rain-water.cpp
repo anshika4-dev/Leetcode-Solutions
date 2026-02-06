@@ -1,28 +1,13 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
-        int total = 0; // Initialize total water trapped
-        int l = 0, r = height.size() - 1; // Two pointers, left (l) and right (r)
-        int lmax = 0, rmax = height[r]; // Initialize max heights for left and right
-        while (l < r) {
-            if (height[l] <= height[r]) {
-                // If left height is less than or equal to right height
-                if (height[l] < lmax) {
-                    total += lmax - height[l]; // Water trapped on the left
-                } else {
-                    lmax = height[l]; // Update left max height
-                }
-                l++; // Move left pointer
-            } else {
-                // If right height is less than left height
-                if (height[r] < rmax) {
-                    total += rmax - height[r]; // Water trapped on the right
-                } else {
-                    rmax = height[r]; // Update right max height
-                }
-                r--; // Move right pointer
-            }
-        }
-        return total; // Return total water trapped
+        int n=height.size(),result=0;
+        vector<int>left(n,0), right(n,0);
+        left[0]=height[0];
+        right[n-1]=height[n-1];
+        for(int i=1;i<n;i++) left[i]=max(left[i-1],height[i]); 
+        for(int i=n-2;i>=0;i--) right[i]=max(right[i+1],height[i]); 
+        for(int i=0;i<n;i++) result+=(min(left[i],right[i])-height[i]);
+        return result;
     }
 };

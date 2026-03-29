@@ -1,8 +1,18 @@
 class Solution {
 public:
     bool repeatedSubstringPattern(string s) {
-        string t=s+s;
-        return t.substr(1,t.length()-2).find(s)!=string::npos;
-        
+        int n=s.length();
+        for(int len=1;len<=n/2;len++){
+            if(n%len==0){
+                string pattern=s.substr(0,len);
+                string temp="";
+                int repeat=n/len;
+                for(int i=0;i<repeat;i++){
+                    temp+=pattern;
+                    if(temp==s) return true;
+                }
+            }
+        }
+        return false;
     }
 };

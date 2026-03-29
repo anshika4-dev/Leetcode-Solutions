@@ -6,13 +6,13 @@ public:
     }
     
     int next(int price) {
-        int day=1;
-        while(!st.empty() && st.top().first <=price){
-            day+=st.top().second;
+        int count=1;
+        while(!st.empty() && st.top().first<=price){
+            count+=st.top().second;
             st.pop();
         }
-        st.push({price,day});
-        return day;
+        st.push({price,count});
+        return count;
     }
 };
 

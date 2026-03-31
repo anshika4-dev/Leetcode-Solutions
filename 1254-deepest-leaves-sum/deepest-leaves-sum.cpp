@@ -15,18 +15,17 @@ public:
         if(!root) return 0;
         queue<TreeNode*>q;
         q.push(root);
-        vector<int>last;
         while(!q.empty()){
-            int n=q.size();
             vector<int>temp;
+            int n=q.size();
             while(n--){
-                temp.push_back(q.front()->val);
                 if(q.front()->left) q.push(q.front()->left);
                 if(q.front()->right) q.push(q.front()->right);
+                temp.push_back(q.front()->val);
                 q.pop();
             }
-            last=temp;
+            if(q.empty()) return accumulate(temp.begin(),temp.end(),0);
         }
-        return accumulate(last.begin(),last.end(),0);
+        return 4;
     }
 };

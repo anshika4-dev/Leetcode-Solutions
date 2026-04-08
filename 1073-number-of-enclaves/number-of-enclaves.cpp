@@ -9,9 +9,10 @@ public:
             q.pop();
             if(x<0 || x>=grid.size() || y<0 || y>=grid[0].size() || grid[x][y]==0) continue;
             grid[x][y]=0;
-            for(auto a:dir){
-                q.push({x+a[0],y+a[1]});
-            }
+            q.push({x+1,y});
+            q.push({x-1,y});
+            q.push({x,y+1});
+            q.push({x,y-1});
         }
     }
     int numEnclaves(vector<vector<int>>& grid) {

@@ -16,7 +16,6 @@ public:
             maxi = max(maxi, F);
         }
 
-       
         return maxi;
     }
 };

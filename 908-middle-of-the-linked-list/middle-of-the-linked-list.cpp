@@ -19,7 +19,7 @@ public:
         }
         ListNode* curr=head;
         int pos=count/2;
-        for(int i=0;i<pos;i++) curr=curr->next;
+        while(pos--) curr=curr->next;
         return curr;
     }
 };

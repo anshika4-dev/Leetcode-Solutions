@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool dfs(vector<vector<char>>& board, int m, int n, string word,int i,int j, int k){
+    bool dfs(vector<vector<char>>& board, int m, int n, string &word,int i,int j, int k){
         if(k>=word.size()) return true;
         if(i<0 || i>=m || j<0 || j>=n || board[i][j]=='*' || board[i][j]!=word[k]) return false;
         char temp=board[i][j];

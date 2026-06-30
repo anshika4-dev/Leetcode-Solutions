@@ -1,16 +1,18 @@
 class Solution {
 public:
     int numberOfSubstrings(string s) {
-        vector<int>v(3,0);
-        int left=0,right=0,count=0;
-        for(right=0;right<s.length();right++){
-            v[s[right]-'a']++;
-            while(v[0]>=1 && v[1]>=1 && v[2]>=1){
-                count+=s.length()-right;
-                v[s[left]-'a']--;
+        int n=s.size();
+        long long res=(1LL*n*(n+1))/2,left=0;
+        unordered_map<char,int>m;
+        for(int i=0;i<n;i++){
+            m[s[i]]++;
+            while(m.size()>2){
+                m[s[left]]--;
+                if(m[s[left]]==0) m.erase(s[left]);
                 left++;
-            } 
+            }
+            res-=(i-left+1);
         }
-        return count;
+        return res;
     }
 };

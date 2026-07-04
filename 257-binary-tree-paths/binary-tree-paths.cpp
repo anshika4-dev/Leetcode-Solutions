@@ -11,21 +11,20 @@
  */
 class Solution {
 public:
-    vector<string> binaryTreePaths(TreeNode* root) {
-        vector<string>result;
-        if(root == nullptr) return result;
-        dfs(root,"",result);
-        return result;
-        
-    }
-    void dfs(TreeNode *node,string path,vector<string> &result){
-        if(!node) return;
-        if(!path.empty()) path +="->";
-        path += to_string(node->val);
-        if(!node->left && !node->right) result.push_back(path);
-        else{
-            dfs(node->left,path,result);
-            dfs(node->right,path,result);
+    vector<string>ans;
+    void dfs(TreeNode* root, string s){
+        if(!root) return;
+        s+=to_string(root->val);
+        if(!root->left && !root->right){
+            ans.push_back(s);
+            return;
         }
+        s+="->";
+        dfs(root->left,s);
+        dfs(root->right,s);
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+        dfs(root,"");
+        return ans;
     }
 };

@@ -14,11 +14,15 @@ public:
                 last--;
             }
         }
-
+        while(m>=0){
+            nums1[last]=nums1[m];
+            m--;
+            last--;
+        }
         while(n>=0){
             nums1[last]=nums2[n];
-            last--;
             n--;
+            last--;
         }
     }
 };

@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    bool helper(TreeNode* p, TreeNode* q){
+    bool helper(TreeNode* p,TreeNode* q){
         if(!p && !q) return true;
         if(!p || !q) return false;
         return p->val==q->val && helper(p->left,q->right) && helper(p->right,q->left);

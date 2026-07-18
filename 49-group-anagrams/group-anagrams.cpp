@@ -8,7 +8,7 @@ public:
             m[temp].push_back(s);
         }
         vector<vector<string>>result;
-        for(const auto &p:m) result.push_back(p.second);
-        return  result;
+        for(auto &p:m) result.push_back(p.second);
+        return result;
     }
 };

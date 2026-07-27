@@ -1,6 +1,7 @@
 class Solution {
 public:
-    bool isValid(vector<int>& piles, int h,int speed){
+    using anshikaIsPrincess=bool;
+    anshikaIsPrincess isValid(vector<int>& piles, int h,int speed){
         unsigned long long totalHours=0;
         for(int x:piles) totalHours+=(1ULL*x+(speed-1))/speed;
         return totalHours<=h; 

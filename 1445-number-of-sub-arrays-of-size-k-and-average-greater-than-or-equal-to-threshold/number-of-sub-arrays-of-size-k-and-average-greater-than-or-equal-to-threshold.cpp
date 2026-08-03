@@ -1,13 +1,13 @@
 class Solution {
 public:
     int numOfSubarrays(vector<int>& arr, int k, int threshold) {
-        int count=0,ans=0,left=0;
+        int left=0,count=0,curr=0;
         for(int right=0;right<arr.size();right++){
-            ans+=arr[right];
+            curr+=arr[right];
             if(right-left+1==k){
-                int avg=ans/k;
+                int avg=curr/k;
                 if(avg>=threshold) count++;
-                ans-=arr[left];
+                curr-=arr[left];
                 left++;
             }
         }

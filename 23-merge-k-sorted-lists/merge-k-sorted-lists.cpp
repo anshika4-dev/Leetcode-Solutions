@@ -11,16 +11,17 @@
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
+        priority_queue<pair<int,ListNode*>,vector<pair<int,ListNode*>>,greater<pair<int,ListNode*>>>minHeap;
         ListNode* dummy=new ListNode(0);
         ListNode* temp=dummy;
-        priority_queue<pair<int,ListNode*>,vector<pair<int,ListNode*>>,greater<pair<int,ListNode*>>>minHeap;
         for(auto x:lists) if(x) minHeap.push({x->val,x});
         while(!minHeap.empty()){
-            auto it=minHeap.top();
-            temp->next=it.second;
+            auto x=minHeap.top();
+            temp->next=x.second;
             temp=temp->next;
             minHeap.pop();
             if(temp->next) minHeap.push({temp->next->val,temp->next});
+            
         }
         return dummy->next;
     }

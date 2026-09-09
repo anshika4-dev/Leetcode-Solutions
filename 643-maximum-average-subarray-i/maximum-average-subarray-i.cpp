@@ -1,16 +1,16 @@
 class Solution {
 public:
     double findMaxAverage(vector<int>& nums, int k) {
-        double left=0,avg=0,res=INT_MIN;
-        for(double right=0;right<nums.size();right++){
-            avg+=nums[right];
+        double result=INT_MIN,curr=0;
+        int left=0;
+        for(int right=0;right<nums.size();right++){
+            curr+=nums[right];
             if(right-left+1==k){
-                double prod=avg/(double)k;
-                res=max(res,prod);
-                avg-=nums[left];
+                result=max(result,curr/k);
+                curr-=nums[left];
                 left++;
             }
         }
-        return res;
+        return result;
     }
 };

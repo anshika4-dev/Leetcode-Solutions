@@ -14,7 +14,8 @@ public:
     int ans=0;
     pair<int,int> helper(TreeNode* root){
         if(!root) return {0,0};
-        auto l=helper(root->left), r=helper(root->right);
+        auto l=helper(root->left);
+        auto r=helper(root->right);
         if((l.first+r.first+root->val)/(l.second+r.second+1)==root->val) ans++;
         return {l.first+r.first+root->val,l.second+r.second+1};
     }

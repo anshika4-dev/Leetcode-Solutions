@@ -10,29 +10,23 @@
  */
 class Solution {
 public:
+    ListNode* reverse(ListNode* head, int swapy) {
+        ListNode* prev=nullptr,*curr=head;
+        while(swapy--){
+            ListNode* next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        head->next=curr;
+        return prev;
+    }
     ListNode* reverseBetween(ListNode* head, int left, int right) {
-        ListNode* dummy= new ListNode(0);
-        stack<ListNode*>st;
+        ListNode* dummy=new ListNode(0);
         dummy->next=head;
         ListNode* temp=dummy;
-
-        int start=1;
-        while(start<left){
-            temp=temp->next;
-            start++;
-        }
-        ListNode* last=temp->next;
-        while(start<=right){
-            st.push(last);
-            last=last->next;
-            start++;
-        }
-        while(!st.empty()){
-            temp->next=st.top();
-            temp=temp->next;
-            st.pop();
-        }
-        temp->next=last;
+        for(int i=1;i<left;i++) temp=temp->next;
+        temp->next=reverse(temp->next,right-left+1);
         return dummy->next;
     }
 };

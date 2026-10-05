@@ -1,8 +1,8 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-       int res=0;
-       for(int x:nums) res^=x;
-       return res; 
+        int temp=0;
+        for(int x:nums) temp^=x;
+        return temp;
     }
 };

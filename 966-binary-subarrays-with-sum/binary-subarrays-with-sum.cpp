@@ -1,11 +1,11 @@
 class Solution {
 public:
-    int helper(vector<int>& nums, int goal){
-        int curr=0,left=0,res=0;
+    int helper(vector<int> &nums, int k){
+        int left=0,sum=0,res=0;
         for(int right=0;right<nums.size();right++){
-            curr+=nums[right];
-            while(left<=right && curr>goal){
-                curr-=nums[left];
+            sum+=nums[right];
+            while(left<=right && sum>k){
+                sum-=nums[left];
                 left++;
             }
             res+=(right-left+1);
